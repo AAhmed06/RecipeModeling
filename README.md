@@ -1,1 +1,1 @@
-# recipe-time-rating-predictor
+# recipe time predictor
