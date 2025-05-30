@@ -1,1 +1,1 @@
-# recipe time predictor
+# Cooking Time & Ratings: An Exploratory Analysis and Predictive Model
