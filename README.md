@@ -172,3 +172,28 @@ The observed statistic of approximately 1.35 is indicated by the red vertical li
   height="600"
   frameborder="0"
 ></iframe>
+
+## Hypothesis Testing
+
+As previously mentioned, I am interested in finding out whether the length of time a recipe takes impacts the way people rate it. As such, I ran a permutation test with the `is_long` column.
+
+**Null Hypotheis**: All recipes are rated the same way, regardless of time.
+
+**Alternative Hypothesis**: Longer recipes are rated lower than short recipes.
+
+**Test Statistic**: Difference in mean between short and long recipes.
+
+**Significance Level**: 0.05
+
+I chose to run this permutation test as it draws long and short recipes as if they were from the same population, without having to assume a normal distribution. I believe that a difference in rating exists because depending on perspective, longer recipes can either be seen as a hassle, or a rewarding project.
+
+The **observed statistic** for the sample was **-0.007**. This indicates that the average rating for long recipes was a bit lower than short recipes. The **P-Value** for the hypothesis test was **0.0**.
+
+Becuase the P-value is less than the significance level, we **reject the null hypothesis**. There is statistically significant evidence to support the claim that longer recipes are rated lower than short recipes.
+
+<iframe
+  src="assets/hypothesis_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
