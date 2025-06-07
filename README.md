@@ -205,3 +205,30 @@ I plan to predict the rating of a recipe, which is a classification problem, as 
 I chose individual as the response variable because it's a direct measure of a single user's experience.
 
 To evaluate the model's performance, I will use the **weighted F1-score**. Accuracy is not an appropriate metric for this problem because the distribution of ratings is heavily skewed, with a disproportionate number of recipes receiving high ratings (such as 4 or 5 stars), with the weighted F1 score accounting for this. A model could achieve high accuracy simply by always predicting the majority class. The F1-score, as the harmonic mean of precision and recall, provides a more reliable measure of the model's performance on this kind of imbalanced dataset.
+
+## Baseline Model
+
+For my baseline model, I am using a Random Forest Classifier to predict the recipe rating on a scale of 1 to 5. This is a multi-class classification problem, as the model must predict one of five possible discrete rating categories.
+
+The model was trained using two quantitative features: minutes (the preparation time) and n_steps (the number of steps in the recipe). No nominal or ordinal features were used in this baseline. . Before training the model, these features were standardized using a StandardScaler. This process ensures that both features are treated equally by the model, preventing features with larger scales (like minutes) from disproportionately influencing the outcome. The data was split into a training set for teaching the model and a test set for evaluating its performance.
+
+The model achieved an overall weighted average F1-score of 0.68. Looking at the individual classes, the model performs very well at predicting 5-star ratings (F1-score of 0.87) but performs extremely poorly on all other ratings, with F1-scores of 0.02 for 1-star ratings and 0.00 for 2-star and 3-star ratings, as well as a score of 0.01 for 4-star ratings.
+
+## Final Model 
+
+To build a more robust model, I engineered several new features from the original data and selected a combination of quantitative and categorical features. The model was trained on the following:
+
+Quantitative Features (6): minutes, n_steps, n_ingredients, and three new engineered features:
+
+**steps_per_ingredient**: This ratio provides a measure of recipe complexity. A recipe with many steps for few ingredients may be more intricate.
+**time_per_step**: This indicates the pace of the recipe. A high value might suggest slow-cooking or resting times.
+**time_per_ingredient**: This ratio helps quantify the effort required per ingredient.
+These engineered features provide deeper insights into the recipe's structure than the raw counts alone, helping the model find more nuanced patterns. All quantitative features were scaled using StandardScaler to ensure they contribute equally to the model.
+
+Categorical Features (2):
+**submitted (Year)**: Extracted just the year from the submission date. This was done to capture potential trends in ratings over time without adding unnecessary noise from the specific day or month.
+**is_long**: A binary flag indicating if a recipe's cooking time is over 60 minutes. This was created to explicitly help the model distinguish between quick and time-intensive recipes. This feature was one-hot encoded for model compatibility.
+
+To find the optimal configuration for the model, I used GridSearchCV. This method systematically works through a "grid" of hyperparameter combinations (such as n_estimators, max_depth, max_features, etc.) and uses 5-fold cross-validation to find the combination that yields the best performance. The search was optimized for the weighted F1-score.
+
+The final model shows an improvement over the baseline. The overall weighted F1-score is 0.69, a 0.01 increase from the baseline's 0.68. Additionally, the model improved performance in the minority classes, with the F1-score of 1-4 rising to: 0.05, 0.01, 0.01, and 0.09 respetively.
