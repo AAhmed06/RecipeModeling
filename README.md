@@ -197,3 +197,11 @@ Becuase the P-value is less than the significance level, we **reject the null hy
   height="600"
   frameborder="0"
 ></iframe>
+
+##  Framing a Prediction Problem
+
+I plan to predict the rating of a recipe, which is a classification problem, as I plan to predict the rating to be on a scale of 1-5 (1,2,3,4,5). In order to do this, I will build a multi-class classifier, as there are 5 possible predictions. 
+
+I chose individual as the response variable because it's a direct measure of a single user's experience.
+
+To evaluate the model's performance, I will use the **weighted F1-score**. Accuracy is not an appropriate metric for this problem because the distribution of ratings is heavily skewed, with a disproportionate number of recipes receiving high ratings (such as 4 or 5 stars), with the weighted F1 score accounting for this. A model could achieve high accuracy simply by always predicting the majority class. The F1-score, as the harmonic mean of precision and recall, provides a more reliable measure of the model's performance on this kind of imbalanced dataset.
