@@ -221,12 +221,17 @@ To build a more robust model, I engineered several new features from the origina
 Quantitative Features (6): minutes, n_steps, n_ingredients, and three new engineered features:
 
 **steps_per_ingredient**: This ratio provides a measure of recipe complexity. A recipe with many steps for few ingredients may be more intricate.
+
 **time_per_step**: This indicates the pace of the recipe. A high value might suggest slow-cooking or resting times.
+
 **time_per_ingredient**: This ratio helps quantify the effort required per ingredient.
+
 These engineered features provide deeper insights into the recipe's structure than the raw counts alone, helping the model find more nuanced patterns. All quantitative features were scaled using StandardScaler to ensure they contribute equally to the model.
 
 Categorical Features (2):
+
 **submitted (Year)**: Extracted just the year from the submission date. This was done to capture potential trends in ratings over time without adding unnecessary noise from the specific day or month.
+
 **is_long**: A binary flag indicating if a recipe's cooking time is over 60 minutes. This was created to explicitly help the model distinguish between quick and time-intensive recipes. This feature was one-hot encoded for model compatibility.
 
 To find the optimal configuration for the model, I used GridSearchCV. This method systematically works through a "grid" of hyperparameter combinations (such as n_estimators, max_depth, max_features, etc.) and uses 5-fold cross-validation to find the combination that yields the best performance. The search was optimized for the weighted F1-score.
