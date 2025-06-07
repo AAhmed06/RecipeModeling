@@ -119,3 +119,56 @@ In this section, I explored the relationship between a recipe's cooking time (mi
 |       120 |              15.6149  |                    14   |                    1 |                   57 |
 
 The resulting visualization shows a clear positive correlation: as the cooking time for a recipe increases, the average number of steps also tends to increase. However, the plot also highlights significant variability, evidenced by the large range between the minimum and maximum number of steps for any given cooking time.
+
+## Assessment of Missingness
+
+Three columns in the merged dataset have missing values, these being `date`, `rating`, and `review`.
+
+### NMAR Analaysis
+
+I believe that the missingess of the `review` column is not missing at random, as oftentimes individuals will be willing to put in the effort to rate a recipe, but writing a review is often excessive to some. Because of this, people are more likely to leave reviews if they feel strongly positive or negative about the recipe, with opinions in between not contributing a review.
+
+### Missingness Dependancy
+To further understand the nature of the missing data, I moved on to test the dependency of missingness in the `rating` column. Specifically, I investigated whether the missingness of rating depends on the recipe's cooking time (`minutes`) or its complexity (`n_steps`).
+
+> Minutes and Rating
+
+**Null Hypothesis**: The missingness of ratings does not depend on the cooking time of the recipe in minutes.
+
+**Alternate Hypothesis**: The missingness of ratings does depend on the cooking time of the recipe in minutes.
+
+**Test Statistic**: The absolute difference in the mean cooking time (minutes) between the group with missing ratings and the group with non-missing ratings.
+
+**Significance Level**: 0.05
+
+I ran a permutation test by shuffling the minutes values 10,000 times to simulate a distribution of mean differences under the null hypothesis.
+
+The observed statistic of approximately 52.0 is indicated by the red vertical line on the graph. This observed difference is extremely far in the tail of the simulated distribution. The resulting p-value was effectively 0.0, which is less than the 0.05 significance level. Therefore, I reject the null hypothesis. The evidence strongly suggests the missingness of rating does depend on the cooking time of the recipe.
+
+<iframe
+  src="assets/missing_minutes_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+> Steps and Rating
+
+**Null Hypothesis**: The missingness of ratings does not depend on the number of steps in the recipe.
+
+**Alternate Hypothesis**: The missingness of ratings does depend on the number of steps in the recipe.
+
+**Test Statistic**: The absolute difference in the mean number of steps (n_steps) between the group with missing ratings and the group with non-missing ratings.
+
+**Significance Level**: 0.05
+
+I ran another permutation test, this time shuffling the n_steps values 10,000 times to collect a sample of simulated mean differences.
+
+The observed statistic of approximately 1.35 is indicated by the red vertical line on the graph. As with the previous test, this result is an extreme outlier compared to the differences generated under the null hypothesis. The calculated p-value was effectively 0.0, which is less than the 0.05 significance level. Therefore, I reject the null hypothesis and conclude that the missingness of rating also depends on the number of steps in the recipe.
+
+<iframe
+  src="assets/missing_steps_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
