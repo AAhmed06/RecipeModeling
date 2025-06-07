@@ -100,6 +100,12 @@ For this piece of bivariate analysis, I examined the relationship between a reci
   frameborder="0"
 ></iframe>
 
+### Interesting Aggregate
+
+Of course. Here is the same breakdown rewritten in the first-person singular.
+
+In this section, I explored the relationship between a recipe's cooking time (minutes) and its complexity, measured by the number of steps (n_steps). I first ensured the cooking time data was clean by filtering out extreme outliers. After grouping the cooking time and the number of steps into the pivot table shown below, I created a data visualization to better interpret the trends.
+
 |   minutes |   ('mean', 'n_steps') |   ('median', 'n_steps') |   ('min', 'n_steps') |   ('max', 'n_steps') |
 |----------:|----------------------:|------------------------:|---------------------:|---------------------:|
 |         0 |               1       |                     1   |                    1 |                    1 |
@@ -113,3 +119,5 @@ For this piece of bivariate analysis, I examined the relationship between a reci
 |       117 |               9       |                     9   |                    9 |                    9 |
 |       118 |              10       |                    10   |                   10 |                   10 |
 |       120 |              15.6149  |                    14   |                    1 |                   57 |
+
+The resulting visualization shows a clear positive correlation: as the cooking time for a recipe increases, the average number of steps also tends to increase. However, the plot also highlights significant variability, evidenced by the large range between the minimum and maximum number of steps for any given cooking time.
