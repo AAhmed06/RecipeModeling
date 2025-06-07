@@ -230,3 +230,33 @@ Categorical Features (2):
 To find the optimal configuration for the model, I used GridSearchCV. This method systematically works through a "grid" of hyperparameter combinations (such as n_estimators, max_depth, max_features, etc.) and uses 5-fold cross-validation to find the combination that yields the best performance. The search was optimized for the weighted F1-score.
 
 The final model shows an improvement over the baseline. The overall weighted F1-score is 0.69, a 0.01 increase from the baseline's 0.68. Additionally, the model improved performance in the minority classes, with the F1-score of 1-4 rising to: 0.05, 0.01, 0.01, and 0.09 respetively.
+
+## Fairness Evaluation
+
+Fairness Evaluation
+To assess the fairness of the final model, I investigated whether its predictive performance was consistent across different types of recipes. Specifically, I tested if the model was biased based on a recipe's preparation time, which I categorized into two groups: long recipes (over 60 minutes) and short recipes (60 minutes or less) using the is_long feature.
+
+The fairness metric chosen for this evaluation was precision parity. I focused on precision because it measures the proportion of positive predictions that are actually correct (e.g., "Of all the recipes the model called 5-star, what fraction were actually 5-star?"). A significant difference in precision between the two groups would indicate that the model's reliability is not equal for both types of recipes, potentially favoring one group over the other and providing a less trustworthy experience for users interested in either long or short recipes.
+
+To formally test for this, I conducted a permutation test with the following framework:
+
+Null Hypothesis: The model is fair. The macro-averaged precision for long-duration recipes is the same as for short-duration recipes, and any observed difference is due to random chance.
+
+Alternative Hypothesis: The model is unfair. There is a statistically significant difference in the macro-averaged precision between long and short recipes.
+
+Test Statistic: The difference in macro-averaged precision scores. 
+
+Significance Level (α): 0.05
+
+The test was conducted by first calculating the observed difference in precision between the two groups on the test set. This resulted in an observed statistic of -0.0963, indicating that the model was less precise for long recipes (precision of 0.2254) than for short recipes (precision of 0.3217). I then created a null distribution by randomly shuffling the 'is_long' labels 10,000 times and recalculating the test statistic for each shuffle.
+The resulting p-value was 0.0320.
+
+### Conclusion 
+Since the p-value (0.032) is less than the significance level of 0.05, I reject the null hypothesis. This result indicates that the model is statistically unfair with respect to recipe duration. Specifically, the model is significantly less precise when predicting ratings for recipes that take longer than an hour to prepare compared to those that are quicker.
+
+<iframe
+  src="assets/model_fairness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
