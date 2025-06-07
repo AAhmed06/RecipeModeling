@@ -102,8 +102,6 @@ For this piece of bivariate analysis, I examined the relationship between a reci
 
 ### Interesting Aggregate
 
-Of course. Here is the same breakdown rewritten in the first-person singular.
-
 In this section, I explored the relationship between a recipe's cooking time (minutes) and its complexity, measured by the number of steps (n_steps). I first ensured the cooking time data was clean by filtering out extreme outliers. After grouping the cooking time and the number of steps into the pivot table shown below, I created a data visualization to better interpret the trends.
 
 |   minutes |   ('mean', 'n_steps') |   ('median', 'n_steps') |   ('min', 'n_steps') |   ('max', 'n_steps') |
