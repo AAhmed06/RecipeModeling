@@ -73,3 +73,12 @@ This results in the following dataset, with the first five rows here:
 </div>
 
 ## Univariate Analysis
+
+For the first piece of univariate analysis, I examined the distribution of minutes a recipe takes. As the plot shows, the distribution is slightly skewed to the left, with most recipes in the filtered dataset less than 60 minutes.
+
+<iframe
+  src="assets/dist_minutes_univariate.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
