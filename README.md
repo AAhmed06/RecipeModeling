@@ -191,13 +191,6 @@ The **observed statistic** for the sample was **-0.007**. This indicates that th
 
 Becuase the P-value is less than the significance level, we **reject the null hypothesis**. There is statistically significant evidence to support the claim that longer recipes are rated lower than short recipes.
 
-<iframe
-  src="assets/hypothesis_test.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-
 ##  Framing a Prediction Problem
 
 I plan to predict the rating of a recipe, which is a classification problem, as I plan to predict the rating to be on a scale of 1-5 (1,2,3,4,5). In order to do this, I will build a multi-class classifier, as there are 5 possible predictions. 
