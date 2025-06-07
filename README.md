@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 # Cooking Time & Ratings: An Exploratory Analysis and Predictive Model
 
 Author: Ali Ahmed
